@@ -23,8 +23,8 @@
     <div id="board"></div>
     <script>
       let pattern = [
-        [2, 0, 0],
-        [0, 1, 0],
+        [0, 0, 0],
+        [0, 0, 0],
         [0, 0, 0],
       ];
 
@@ -52,52 +52,75 @@
 
       function move(x, y) {
         pattern[y][x] = color;
-        if (check()) {
-          alert(color === 2 ? "❌" : "⭕" + "is winner");
+        if (check(pattern, color)) {
+          alert(color === 2 ? "❌" : "⭕" + " is winner");
         }
         color = 3 - color; // 3- 1= 2 3-2=1
         show();
+        if (willWin(pattern, color)) {
+          console.log((color === 2 ? "❌" : "⭕") + " will win!");
+        }
       }
 
-      function check() {
+      function check(pattern, color) {
         // 判断行
         for (let i = 0; i < 3; i++) {
-            let win = true;
-            for(let j = 0; j < 3; j++) {
-                if(pattern[i][j] !== color) {
-                    win = false;
-                }
+          let win = true;
+          for (let j = 0; j < 3; j++) {
+            if (pattern[i][j] !== color) {
+              win = false;
             }
-            if(win) return true;
+          }
+          if (win) return true;
         }
         // 判断 列
         for (let i = 0; i < 3; i++) {
-            let win = true;
-            for(let j = 0; j < 3; j++) {
-                if(pattern[j][i] !== color) {
-                    win = false;
-                }
+          let win = true;
+          for (let j = 0; j < 3; j++) {
+            if (pattern[j][i] !== color) {
+              win = false;
             }
-            if(win) return true;
+          }
+          if (win) return true;
         }
         // 判断 斜线
         {
-            let win = true;
-            for(let j = 0; j < 3; j++) {
-                if(pattern[j][2-j] !== color) {
-                    win = false;
-                }
+          let win = true;
+          for (let j = 0; j < 3; j++) {
+            if (pattern[j][2 - j] !== color) {
+              win = false;
             }
-            if(win) return true;
+          }
+          if (win) return true;
         }
         {
-            let win = true;
-            for(let j = 0; j < 3; j++) {
-                if(pattern[j][j] !== color) {
-                    win = false;
-                }
+          let win = true;
+          for (let j = 0; j < 3; j++) {
+            if (pattern[j][j] !== color) {
+              win = false;
             }
-            if(win) return true;
+          }
+          if (win) return true;
+        }
+        return false;
+      }
+
+      function clone(pattern) {
+        return JSON.parse(JSON.stringify(pattern));
+      }
+
+      function willWin(pattern, color) {
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            if (pattern[i][j]) {
+              continue;
+            }
+            let tmp = clone(pattern);
+            tmp[i][j] = color;
+            if (check(tmp, color)) {
+              return true;
+            }
+          }
         }
         return false;
       }
