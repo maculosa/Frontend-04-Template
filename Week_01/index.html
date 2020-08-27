@@ -32,8 +32,8 @@
             for(let j = 0; j < 3; j++) {
                 let cell = document.createElement('div');
                 cell.classList.add('cell');
-                cell.innerText = pattern[j][i] === 2 ? '×':
-                    pattern[j][i] === 1 ? 'o': '';
+                cell.innerText = pattern[j][i] === 2 ? '❌':
+                    pattern[j][i] === 1 ? '⭕': '';
                 board.appendChild(cell);
             }
             board.appendChild(document.createElement('br'));
