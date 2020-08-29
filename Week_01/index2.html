@@ -165,17 +165,18 @@
                     }
                     let tmp = clone(pattern);
                     tmp[i * 3 + j] = color;
-                    let opp = bestChoice(tmp, 3 - color);
+                    let r = bestChoice(tmp, 3 - color).result;
 
-                    if(-opp.result >= result) {
+                    if(-r >= result) {
                         point = [j, i];
-                        result = - opp.result;
+                        result = - r;
                     }
-                    if(result === -1) {
+                    if(result == 1) {
                         break outer;
                     }
                 }
             }
+
             return {
                 point: point,
                 result: point ? result: 0
