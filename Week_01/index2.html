@@ -69,10 +69,6 @@
             color = 2 / color;
             console.log(bestChoice(pattern, color));
             show();
-            // bestChoice(pattern, color);
-            // if(willWin(pattern, color)) {
-            //     console.log((color === 2 ? '❌': '⭕') + ' will win!');
-            // }
         }
 
         function check(pattern, color) {
@@ -110,7 +106,8 @@
                         win = false;
                     }
                 }
-                if(win) return true;
+                if(win)
+                    return true;
             }
             return false;
         }
@@ -139,13 +136,14 @@
          * @return { point, result }   result: 0, 和棋；1，赢；-1，输
          */
         function bestChoice(pattern, color) {
-            let p;
-            if(p = willWin(pattern, color)) {
+            let point = willWin(pattern, color);
+            if(point) {
                 return {
-                    point: p,
+                    point,
                     result: 1
                 }
             }
+
             let result = -1;
             outer:for(let i = 0; i < 3; i++) {
                 for(let j = 0; j < 3; j++) {
