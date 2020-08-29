@@ -37,8 +37,8 @@
     <script>
         // 一直在用二维数组保存棋盘，还有其他的方法吗？
         let pattern = [
-            [0, 0, 2],
-            [0, 1, 0],
+            [0, 0, 0],
+            [0, 0, 0],
             [0, 0, 0]
         ];
         let color = 1;
@@ -54,25 +54,37 @@
                     cell.classList.add('cell');
                     cell.innerText = pattern[i][j] === 2 ? '❌':
                         pattern[i][j]===1 ?'⭕': '';
-                    cell.addEventListener('click', () => move(j,i));
+                    cell.addEventListener('click', () => userMove(j,i));
                     board.appendChild(cell);
                 }
                 board.appendChild(document.createElement('br'))
             }
         }
 
-        function move(x, y) {
+        function userMove(x, y) {
             pattern[y][x] = color;
             if(check(pattern, color)) {
                 alert((color === 2 ? '❌': '⭕') + ' is winner');
             }
-            color = 2 / color;        
-            console.log(bestChoice(pattern, color));
+            color = 2 / color;
             show();
-            // bestChoice(pattern, color);
-            if(willWin(pattern, color)) {
-                console.log((color === 2 ? '❌': '⭕') + ' will win!');
+            
+            computerMove()
+            // if(willWin(pattern, color)) {
+            //     console.log((color === 2 ? '❌': '⭕') + ' will win!');
+            // }
+        }
+
+        function computerMove() {
+            let choice = bestChoice(pattern, color);
+            if(choice.point) {
+                pattern[choice.point[1]][choice.point[0]] = color;
             }
+            if(check(pattern, color)) {
+                alert((color == 2 ? '❌': '⭕') + ' is winner');
+            }
+            color = 3 - color;
+            show();
         }
 
         function check(pattern, color) {
