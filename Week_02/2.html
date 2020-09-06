@@ -95,20 +95,24 @@ class Sorted {
 
     async function findPath(map, start, end) {
         let table = Object.create(map);
-        var queue = [start];
+        var queue = new Sorted([start], (a, b) => distance(a) - distance(b));
 
         async function insert(x, y, pre) {
             if(x < 0 || x >= 100 || y < 0 || y >= 100) return ;
             if(table[y * 100 + x]) return;
 
-            // await sleep(1);
+            await sleep(5);
             container.children[y * 100 + x].style.backgroundColor = 'lightgreen';
             table[y * 100 + x] = pre;
-            queue.push([x, y]);
+            queue.give([x, y]);
         }
 
-        while(queue.length) {
-            let [x, y] = queue.shift(); // 改为 .pop() 则为深度优先搜索 
+        function distance(point) {
+            return (point[0] - end[0]) ** 2 + (point[1] - end[1]) ** 2
+        }
+
+        while(queue.data.length) {
+            let [x, y] = queue.take(); // 改为 .pop() 则为深度优先搜索 
             console.log(x, y);
             if(x === end[0] && y === end[1]) {
                 let path = [];
@@ -116,11 +120,11 @@ class Sorted {
                 while(x != start[0] || y != start[1]) {
                     path.push(map[y * 100 + x]);
                     [x, y] = table[y * 100 + x];
-                    await sleep(30);
                     container.children[y * 100 + x].style.backgroundColor = "purple";
                 }
                 return path;
             }
+
             await insert(x - 1, y, [x, y]);
             await insert(x, y - 1, [x, y]);
             await insert(x + 1, y, [x, y]);
