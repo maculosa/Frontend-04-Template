@@ -26,6 +26,7 @@
 <button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
 
 <script>
+    // TODO 将 Sorted 替换成更好的数据结构
 class Sorted {
     constructor(data, compare) {
         this.data = data.slice();
@@ -99,11 +100,11 @@ class Sorted {
 
         async function insert(x, y, pre) {
             if(x < 0 || x >= 100 || y < 0 || y >= 100) return ;
-            if(table[y * 100 + x]) return;
+            if(table[y * 100 + x]) return; // TODO 寻找最优前驱点 1
 
             await sleep(5);
             container.children[y * 100 + x].style.backgroundColor = 'lightgreen';
-            table[y * 100 + x] = pre;
+            table[y * 100 + x] = pre; // TODO 寻找最优前驱点 2
             queue.give([x, y]);
         }
 
