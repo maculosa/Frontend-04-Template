@@ -38,11 +38,11 @@
         }
     }
 
-    for(let token of tokenize("1024 + 10 * 25")) {
+    for(let token of tokenize("10 * 25")) {
         console.log(token);
     }
     
-    function Expression(token) {
+    function Expression(tokens) {
 
     }
 
@@ -53,7 +53,7 @@
         console.log(source);
     }
 
-    MultiplicativeExpression(source);
+    MultiplicativeExpression("10 * 25");
 
 </script>
 </body>
