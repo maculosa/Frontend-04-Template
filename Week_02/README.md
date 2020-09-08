@@ -16,6 +16,11 @@
 
 ## LL算法构建AST
 
+什么是 LL 算法
+一种从左到右读入程序， 从最左边开始推到
+
+
+
 ### 四则运算分析
 
 - TokenNumber:
@@ -23,5 +28,3 @@
 - Operator: +、-、*、/ 之一
 - Whitespace: <SP>
 - LineTerminator: <LF> <CR>
-
-
