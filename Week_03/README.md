@@ -25,6 +25,15 @@
 
 ## 3. 字符串分析算法 | KMP 字符串模式匹配算法
 
+**普通匹配算法(暴力算法)**
+原串， pattern串
+从 原串中 匹配 pattern串   O(m*n)
+
+pattern: abcdabce
+source:  abcd**abcdabce**x
+
+
+
 
 
 ## 4. 字符串分析算法 | Wildcard
