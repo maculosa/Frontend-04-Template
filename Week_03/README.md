@@ -32,11 +32,24 @@
 pattern: abcdabce
 source:  abcd**abcdabce**x
 
-
-
-
-
 ## 4. 字符串分析算法 | Wildcard
+
+- wildcard: ab*c?d*abc*a?d
+  - 只有 * : ab*cd*abc*a?d
+  - 只有 ? : c?d, a?d
+
+简化问题
+
+### 只有 ‘*’
+
+除了最后一个 * , 
+一个 * 加上一个字符，就是在字符串中去找一个 特定 pattern 的字符。
+
+**当只有 ‘*’，一个 wildcard 就是若干个 kmp组成的**
+
+```bash
+ab*cd*abc*a?d
+```
 
 ## 5. proxy 与双向绑定 | proxy 的基本用法
 
