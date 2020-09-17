@@ -1,0 +1,74 @@
+<script>
+    var cat = {
+        say() {
+            console.log('meow');
+        },
+        jump() {
+            console.log('jump');
+        }
+    }
+
+    var tiger = Object.create(cat, {
+        say: {
+            writable: true,
+            configurable: true,
+            enumerable: true,
+            value: function() {
+                console.log('roar!');
+            }
+        }
+    })
+
+    var anotherCat = Object.create(cat);
+    anotherCat.say();
+
+    var anotherTiger = Object.create(tiger);
+
+    anotherTiger.say();
+
+
+
+
+
+
+
+
+    class Rectangle {
+        constructor(height, width) {
+            this.height = height;
+            this.width = width;
+        }
+
+        get area() {
+            return this.calcArea();
+        }
+
+        calcArea() {
+            return this.height * this.width;
+        }
+    }
+
+
+
+    class Animal {
+        constructor(name) {
+            this.name = name;
+        }
+        speak() {
+            console.log(this.name + ' makes a noise.');
+        }
+    }
+
+    class Dog extends Animal {
+        constructor(name) {
+            super(name);
+        }
+
+        speak() {
+            console.log(this.name + ' barks');
+        }
+    }
+
+    let d = new Dog('Mitzie');
+    d.speak();
+</script>
