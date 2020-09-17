@@ -1,0 +1,16 @@
+<script>
+    // proxy 基本用法
+    let object = {
+        a:1,
+        b:2
+    }
+    
+    // 一种特殊对象
+    let po = new Proxy(object, {
+        set(obj, prop, val) {
+            console.log(obj, prop, val);
+        }
+
+    })
+
+</script>
