@@ -1,11 +1,12 @@
 <script>
     let callbacks = new Map();
+    let reactivties = new Map();
 
     let usedReactivties = [];
 
     // proxy 基本用法
     let object = {
-        a:1,
+        a: { b: 3},
         b:2
     }
     
@@ -13,7 +14,7 @@
     let po = reactive(object);
 
     effect(() => {
-        console.log(po.a);
+        console.log(po.a.b);
     })
 
 
@@ -35,7 +36,11 @@
     }
 
     function reactive(object) {
-        return new Proxy(object, {
+        if(reactivties.has(object))
+            return reactivties.get(object);
+
+
+        let proxy = new Proxy(object, {
             set(obj, prop, val) {
                 obj[prop] = val; // 操作真正的对象
                 if(callbacks.get(obj)) 
@@ -47,9 +52,16 @@
             },
             get(obj, prop) {
                 usedReactivties.push([obj, prop]);
+                if(typeof obj[prop] === 'object')
+                    return reactive(obj[prop]);
+                
                 return obj[prop];
             }
         })
+
+        reactivties.set(object, proxy);
+
+        return proxy;
     }
 
 </script>
