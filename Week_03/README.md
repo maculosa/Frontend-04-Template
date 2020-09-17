@@ -53,6 +53,10 @@ ab*cd*abc*a?d
 
 ## 5. proxy 与双向绑定 | proxy 的基本用法
 
+> 不建议在业务中大量的使用 proxy, (强大且危险的设计特性，专为底层库去设计的)
+
+
+
 ## 6. proxy 与双向绑定 | 模仿 reactive 实现原理（一）
 
 ## 7. proxy 与双向绑定 | 模仿 reactive 实现原理（二）
