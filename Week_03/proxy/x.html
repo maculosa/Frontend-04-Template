@@ -1,4 +1,6 @@
 <script>
+    let callbacks = [];
+
     // proxy 基本用法
     let object = {
         a:1,
@@ -8,11 +10,22 @@
     // 一种特殊对象
     let po =reactive(object);
 
+    effect(() => {
+        console.log(po.a);
+    })
+
+
+    function effect(callback) {
+        callbacks.push(callbacks);
+    }
+
     function reactive(object) {
         return new Proxy(object, {
             set(obj, prop, val) {
                 obj[prop] = val; // 操作真正的对象
-                console.log(obj, prop, val)
+                for(let callback of callbacks) {
+                    callback();
+                }
                 return obj[prop];
             },
             get(obj, prop) {
