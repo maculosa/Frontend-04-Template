@@ -66,6 +66,10 @@ ab*cd*abc*a?d
 ## 9. proxy 与双向绑定 | 优化 reactive
 
 ## 10. proxy 与双向绑定 | reactivity 响应式对象
+有什么用？
+一个半成品的双向绑定
+
+
 
 ## 11. 使用 Range 实现 DOM 精确操作 | 基本拖拽
 
