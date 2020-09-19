@@ -221,8 +221,124 @@ A[词法] -->|语义| B[运行时];
 
 ## 8. js类型 | String
 
+对其认知可能只是停留在感性的层面
+
+- Character
+- Code Point 用数字来表示字符
+- Encoding
+
+编码方式：
+
+- ASCII
+- Unicode
+- UCS
+  0000~FFFF
+- GB
+  - GB2312
+    第一个版本，有部分 Code Point 与unicode 不一致，不兼容
+  - GBK(GB13000)
+    以为够用
+  - GB18030
+    包含几乎所有字符
+- ISO-8859
+  类似于在ASCII兼容，没有中文版本
+- BIG5
+  台湾
+
+### Encoding
+
+- UTF
+
+UTF8  01100001 01100010
+      |--a---| |---b---|
+UTF16 00000000 01100001 00000000 01100010
+      |-------a-------| |-------b-------|
+
+### Grammar
+
+"abc"
+'abc'
+`abc`
+
+写一段 JS 的函数，把一个 string 它代表的字节给它转换出来，用 UTF8 对 string 进行遍码。
+
+```javascript
+const utf8_encoding = str => {
+    let code = encodeURI(str);
+    let list = [];
+    let i = 0;
+    while(i < code.length) {
+        if(code[i] === '%') {
+            list.push(parseInt(code[i+1] + code[i+2], 16));
+            i += 3;
+        } else {
+            list.push(code[i].charCodeAt());
+            i++
+        }
+    }
+
+    let binaryList = []
+    for(const i of list) {
+        binaryList.push(i.toString(2));
+    }
+    return binaryList;
+}
+```
+
 ## 9. js类型 | 其他类型
+
+- Boolean
+  - true
+  - false
+- null
+- undefined
+- void 0
 
 ## 10. js类型 | 对象的基础知识
 
+我们不应该收到语言描述的干扰
+在设计对象的状态和行为时，我们重视遵循“行为改变状态”的原则
+
+对象的行为必须是改变对象状态的，违背了这个原则，其实对象的内聚性就没有了
+
 ## 11. js类型 | js中的对象
+
+在 js 运行时，原生对象的描述方式非常简单，我们只需要关心原型和属性两个部分。
+
+js 用属性来统一抽象对象状态和行为。
+
+一般来说，数据属性用于描述状态，访问器属性则用于描述行为。
+
+数据属性中如果存储函数，也可以用于描述行为。
+
+enumerable 主要影响 Object.keys() 这样的一些内置的函数的行为，也会影响 forEach 这样的语法产生的默认的行为。
+
+当我们访问属性时，如果当前对象没有，则会沿着原型找原型对象是否有此名称的属性，而原型对象还可能有原型，因此，会有“原型链这一说法”。
+
+这一算法保证了，每个对象只需要描述自己和原型的区别即可。
+
+### Object API/Grammar
+
+- {} . [] Object.defineProperty
+- Object.create / Object.setPrototypeOf / Object.getPrototypeOf
+  基于原型的对象 API
+- new / class / extends
+  基于分类的方式描述对象
+  从语法上来看，是完全基于类的方式
+- new / function / prototype
+  不要用
+
+js 中还有一些特殊的对象，比如函数对象。
+
+除了一般对象的属性和原型，函数对象还有一个行为`[[call]]`。
+
+用js中的function 关键字、箭头运算符或者 Function 构造器创建的对象，会有`[[call]]`这个行为。
+
+用类似 f() 这样的语法把对象当作函数调用时，会访问到`[[call]]`这个行为
+
+如果对应的对象没有 `[[call]]` 行为，则会报错
+
+---
+
+Q: 找出 JavaScript 标准里面所有具有特殊行为的对象
+A: 数组，原型，字符串
