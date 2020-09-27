@@ -4,7 +4,7 @@ function StringToNumber(str) {
     const regOctal = /^0o([0-7]+$)/
     const regHex = /^[+-]?(\d*(e\d*)?$)/
 
-    function toBaseNum(nstr, pattern, baseNum) {
+    const toBaseNum = (nstr, pattern, baseNum) => {
         let num = nstr.replace(pattern, ($1, $2) => $2)
         let i = len = num.length;
         let result = 0;
@@ -40,15 +40,19 @@ function StringToNumber(str) {
     } else {
         return console.log(`无法将 String: '${str}' 转换为数字`);
     }
-
     
 }
 
 
-let a = StringToNumber('0b1001')  // '9'
+// let a = StringToNumber('0b1001')  // '9'
 // let b = StringToNumber('0o22') // '18'
 // let c = StringToNumber('16') // '16'
 // let d = StringToNumber('0xa') // '10'
 
-console.log(a)
-// console.log(StringToNumber('aad2123'))
+// TODO 数字转换字符串 带进制
+function NumberToString(num, base = 10) {
+    if(typeof num !== 'number') return console.log('num 不是 number 类型')
+}
+
+
+console.log(NumberToString(4, 2))   // 0b1000
