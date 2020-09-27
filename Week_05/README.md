@@ -45,5 +45,83 @@ new new a()
 - delete
 - assign
 
+### 单目运算符
 
+- Unary
+  - `delete a.b`
+  - `void foo()`
+  - `typeof a`
+  - `+ a`
+  - `- a`
+  - `~ a`
+  - `!a`
+  - `await a`
 
+- Equality
+  - `==`
+  - `!=`
+  - `===`
+  - `!==`
+
+- Bitwise
+  - `& ^ |`
+
+有短路结构
+
+- Logical
+  - `&&`
+  - `||`
+- Conditional
+  - ` ? : `
+
+## JS表达式---类型转换
+
+- `a + b`
+- `"false" == false`
+- `a[o] = 1`
+
+7种基本类型转换
+
+|          | Number | String | Boolean | Undefined | Null | Object | Symbol |
+|  ----    |  ----  |  ----  |  ----   |  -----    |  --- | ---    |    --- |
+| Number   | -      |        | 0 false | ×         | ×    | Boxing | ×      |
+| String   |        | -      | "" false| ×         | x    | Boxing | ×      |
+| Boolean  | true 1 <br/> false 0 | 'true'<br/>'false' | - | × | × | Boxing | × |
+| Undefined| NaN | 'Undefined' | false | - | × | × | × |
+| Null | 0 | 'null' | false | × | - | × | × |
+| Object | valueOf | valueOf<br /> toString | true | × | × | - | × |
+| Symbol | × | × | × | × | × | Boxing | - |
+
+### Unboxing
+
+- ToPremitive
+- toString vs valueOf
+- Symbol.toPremitive
+
+```js
+var o = {
+  toString() { return '2' },
+  valueOf() { return 1 },
+  [Symbol.toPremitive]() { return 3 }
+}
+```
+
+### Boxing
+
+| 类型 | 对象 | 值 |
+| - | - | - |
+| Number | new Number(1) | 1 |
+| String | new String('a') | 'a' |
+| Boolean | new Boolean(true) | true |
+| Symbol | new Object(Symbol('a')) | Symbol('a') |
+
+#### Exercise
+
+- StringToNumber
+  ```js
+  function StringToNumber(str, base) {
+    
+  }
+  ```
+
+- NumberToString
