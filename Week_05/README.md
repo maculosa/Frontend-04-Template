@@ -117,11 +117,6 @@ var o = {
 
 #### Exercise
 
-- StringToNumber
-  ```js
-  function StringToNumber(str, base) {
-    
-  }
-  ```
+练习见  `exercise.js`
 
-- NumberToString
+## 
