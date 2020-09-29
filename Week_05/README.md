@@ -119,4 +119,52 @@ var o = {
 
 练习见  `exercise.js`
 
-## 
+## js语句 | 运行时相关概念
+
+### 语法
+
+- 简单语句
+  不会再容纳其他语句
+  - ExpressionStatement
+  - EmptyStatement
+  - DebuggerStatement  出发 debugger 断点
+  - ThrowStatement  抛出异常
+  - ContinueStatement  和循环语句相匹配
+  - BreakStatement  和循环语句相匹配， 结束整个循环
+  - ReturnStatement  一定在函数中使用
+- 组合语句（复合语句）
+  - BlockStatement
+  - IfStatement
+  - SwitchStatement  在 c、c++中性能是会比连续的 if 要搞得
+  - IterationStatement  while、do...while, for, for await
+  - WithStatement  广受诟病的语句  
+  - LabelledStatement   在语句前面添加了一个 label
+  - TryStatement  try...catch...finally
+- 声明
+
+### Runtime
+
+#### Completion Record
+
+```js
+  if(x == 1)
+    return 10;
+```
+
+需要一个数据结构来描述语句的执行结果：是否返回了？返回值是啥？等待...
+
+- [[type]]: normal, break, continue, return, or throw
+- [[value]]: 基本类型
+- [[target]]: label
+
+#### Lexical Environment
+
+### Statement
+
+- BlockStatement
+
+```js
+{
+  // todo
+}
+```
