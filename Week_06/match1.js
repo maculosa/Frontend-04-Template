@@ -68,7 +68,7 @@ function foundB2(c) {
     if(c == 'x') {
         return end;
     } else {
-        return startB(c);
+        return foundB(c);
     }
 }
 
