@@ -16,11 +16,80 @@
   - 状态机的每一个机器本身是没有状态的，如果我们用函数来表示的话，它应该是纯函数（无副作用）
 - 每一个机器知道下一个状态
   - 每个机器都有确定的下一个状态（Moore）
-  - 每个机器根据输入决定下一个状态（Mealy）
+  - 每个机器根据输入决定下一个状态（Mealy（比较使用的））
 
 状态机里面的函数是纯函数（没有副作用）
 纯函数是没有外部输入，可以有输出的函数
 
 摩尔状态机（简单版状态机）
 过程：
-状态 a 不管接受什么输出，它一定可以进入状态 b, 依此类推
+状态 a 不管接受什么输出，它一定可以进入状态 b, 依此类推.
+
+### JS中的有限状态机（Mealy）
+
+```js
+// 每个函数是一个状态
+function state(input) //函数参数就是输入
+{
+  // 在函数中，可以自由地编写代码，处理每个状态地逻辑
+  return next; // 返回值作为下一个状态
+}
+
+/////////// 调用 //////////
+while(input) {
+  // 获取输入
+  state = state(input); // 把状态机的返回值作为下一个状态
+}
+```
+
+> TIP
+> 莫尔型 `next` 与 `input` 无关
+
+### 3. 状态机 | 不使用状态机处理字符串（一）
+
+- 在一个字符串中，找到字符 " a"
+
+```js
+let str = 'sdfardsjk afjwelfsdf';
+
+const regRex = /a/ig;
+
+regRex.test(str)
+
+```
+
+## HTTP请求
+
+### 第一步
+
+- 设计一个 HTTP请求的类
+- content type 是一个必要的字段，要有默认值
+- body 是 KV格式
+- 不同的 content-type 影响 body 的格式
+
+### 第二步
+
+- 在 Request 的构造器中收集必要的信息
+- 设计一个 send 函数，把请求真实发送到服务器
+- send 函数应该是异步的，所以返回Promise
+
+> 进入第三步之前：
+```
+HTTP/1.1 200 OK                              # status line
+                                             # headers
+Content-Type:text/html                      
+Date: Mon, 23 Dec 2019 06:"46:19 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+
+26                                           # chunk body  0x0 得到 空的 chunk 来且分空的 body
+<html><body> Hello World</body></html>
+0
+```
+
+### 第三步 response 解析
+
+- Response 必须分段构造，所以我们要用一个 ResponseParser 来 “装配”
+- ResponseParser 分段处理 ResponseText, 我们用状态极来分析文本的结构
+
+
