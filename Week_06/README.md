@@ -23,6 +23,7 @@
 
 摩尔状态机（简单版状态机）
 过程：
+<<<<<<< HEAD
 状态 a 不管接受什么输出，它一定可以进入状态 b, 依此类推.
 
 ### JS中的有限状态机（Mealy）
@@ -93,3 +94,124 @@ Transfer-Encoding: chunked
 - ResponseParser 分段处理 ResponseText, 我们用状态极来分析文本的结构
 
 
+=======
+状态 a 不管接受什么输出，它一定可以进入状态 b, 依此类推
+
+
+
+
+
+### 使用有限状态机处理字符串
+
+- 在一个字符串中，找到字符 "ab"
+
+```js
+function match(str) {
+    for (let c of str) {
+        if(c == 'ab')
+            return true;
+    }
+    return false;
+}
+
+// 示例：
+function match(str) {
+    let foundA = false;
+    for(let c of str) {
+        if(c == 'a') {
+            foundA = true;
+        } else if(foundA && c == 'b') {
+            return true;
+        } else {
+            foundA = false;
+        }
+    }
+    return false;
+}
+```
+
+- 在一个字符串中，找到字符 "abcdef"
+
+```js
+function match(str) {
+    let foundA = false;
+    for(let c of str) {
+        if(c == 'a') {
+            foundA = true;
+        } else if(foundA && c == 'b') {
+            return true;
+        } else {
+            foundA = false;
+        }
+    }
+    return false;
+}
+// 使用状态机处理字符串
+function match(str) {
+    let state = start;
+    for(let c of str) {
+        state = state(c);
+    }
+    return state === end;
+}
+
+function start(c) {
+    if(c == 'a') {
+        return foundA;
+    } else {
+        return start;
+    }
+}
+
+function end(c) {
+    return end;
+}
+
+function foundA(c) {
+    if(c === 'b') {
+        return foundB;
+    } else {
+        return start(c);
+    }
+}
+
+function foundB(c) {
+    if(c === 'c) {
+        return foundC;
+    } else {
+        return start(c);
+    }
+}
+
+function foundC(c) {
+    if(c === 'd') {
+        return founcD;
+    } else {
+        return start(c);
+    }
+}
+
+function foundD(c) {
+    if(c === 'e') {
+        return founcE;
+    } else {
+        return start(c);
+    }
+}
+
+function foundE(c) {
+    if(c == 'f') {
+        return end;
+    } else {
+        return start(c);
+    }
+}
+
+```
+
+- 我们如何用状态机处理诸如 "abcabx" 这样的字符串？
+
+```js
+
+```
+>>>>>>> b6b27bf2f39ed6e07091b53de370278a07eb5e85
